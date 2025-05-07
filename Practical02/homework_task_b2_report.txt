@@ -1,0 +1,21 @@
+app.use(express.json()) is middleware for parsing incoming JSON requests. Middleware are functions that run between a request and a response. 
+In the case of the above function, it unwraps JSON data from a request and turns it into a Javascript object for the app to use. 
+This function needs to be included, as Express occludes it to be lighter and not all servers need to parse JSON data. 
+In the case of food-api, it is to parse the JSON data of the foods object.
+
+req.body is the content sent by the request. In food-api, it contains the data that is to be created or updated.
+req.query is for searching/filtering. It is for retrieving the data from the `?name=` part.
+req.params.id is to retrieve a specific ID sent in the URL of the request.
+
+GET is to retrieve data from the server. It is the READ of CRUD.
+POST is to update something from the server. It is the UPDATE of CRUD.
+PUT is to create something new to put on the server. It is the CREATE of CRUD.
+DELETE is to delete something on the server. It is the DELETE of CRUD.
+
+200 means that the request succeeded.
+201 is for successfully creating something on the server.
+400 is for when the request fails due to something that is perceived to be a client error.
+404 is when the requested resource cannot be found.
+500 is when there is an unexpected error server side.
+
+
