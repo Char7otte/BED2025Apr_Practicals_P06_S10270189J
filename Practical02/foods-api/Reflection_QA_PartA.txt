@@ -1,0 +1,15 @@
+Reflection:
+-When sending a response, it should always include a 'return' to ensure that no further code in the method is executed. 
+This is especially important in situations where there are loops like if/else.
+
+-Sending a .status() is important for debugging purposes.
+
+-I had previously used Express 4. I hadn't realized that it had updated to Express 5 so debugging the syntax changes 
+such as `req.params("id")` -> req.params.id` and `app.get(*)` -> `app.get("/*splat") was enlightening.
+
+Q&A:
+A)POST does not need an identifier like :id, so it's more appropriate for creating an object where the server will create an ID. 
+PUT does need an identifier, so you can use it to easily find an object to update.
+
+B)404 not found.
+
