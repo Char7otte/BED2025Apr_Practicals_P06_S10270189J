@@ -3,23 +3,7 @@ const app = express();
 const PORT = 3000;
 const { v4: uuidv4 } = require("uuid");
 
-const foods = [
-    {
-        id: uuidv4(),
-        name: "Apple",
-        calories: 95,
-    },
-    {
-        id: uuidv4(),
-        name: "Banana",
-        calories: 105,
-    },
-    {
-        id: uuidv4(),
-        name: "Chicken Breast",
-        calories: 165,
-    },
-];
+let foods = require("./foods.json");
 
 app.use(express.json());
 
