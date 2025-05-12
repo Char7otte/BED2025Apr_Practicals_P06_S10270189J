@@ -1,0 +1,10 @@
+-Indicate the query, create a request, & request the query to get a result.
+
+-I understand the usefulness of having a relational database 
+but good lord the syntax is quite messy compared to something like Mongoose. 
+It did get me to learn how to create my own snippets in vscode though, so yay.
+
+-I did miss out an await while trying to query and the console error was a slight pain to 
+figure out since it said that it wasn't connected to the database... Then what is `await sql.connect()` doing???
+but yeah. 
+
