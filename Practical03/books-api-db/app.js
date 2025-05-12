@@ -99,6 +99,78 @@ app.post("/books", async (req, res) => {
     }
 });
 
+app.put("/books/:id", async (req, res) => {
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).send("Invalid book ID");
+    }
+    const { title, author } = req.body;
+    console.log(req.body);
+
+    let connection;
+    try {
+        connection = await sql.connect(dbConfig);
+        const sqlQuery = `
+        UPDATE Books SET title = @title, author = @author WHERE id = @id; 
+        SELECT id, title, author FROM Books WHERE id = @id`;
+        const request = connection.request();
+        request.input("title", title);
+        request.input("author", author);
+        request.input("id", id);
+        const result = await request.query(sqlQuery);
+
+        if (!result.recordset[0]) {
+            return res.status(404).send("Book not found");
+        }
+
+        return res.json(result.recordset[0]);
+    } catch (error) {
+        console.log(`Error in PUT /books/${id}:`, error);
+        return res.status(500).send("Error updating book");
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (error) {
+                console.log("Error closing database connection: ", error);
+            }
+        }
+    }
+});
+
+app.delete("/books/:id", async (req, res) => {
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+        return res.status(400).send("Invalid book ID");
+    }
+
+    let connection;
+    try {
+        connection = await sql.connect(dbConfig);
+        const sqlQuery = `DELETE FROM Books WHERE id = @id`;
+        const request = connection.request();
+        request.input("id", id);
+        const result = await request.query(sqlQuery);
+
+        if (result.rowsAffected == 0) {
+            return res.status(404).send("Book not found");
+        }
+
+        return res.status(204).end(); //why does this status code ignore response body bro
+    } catch (error) {
+        console.log(`Error in DELETE /books/${id}: `, error);
+        return res.status(500).send("Error deleting book");
+    } finally {
+        if (connection) {
+            try {
+                await connection.close();
+            } catch (error) {
+                console.log("Error closing database connection: ", error);
+            }
+        }
+    }
+});
+
 app.listen(port, async () => {
     try {
         await sql.connect(dbConfig);
