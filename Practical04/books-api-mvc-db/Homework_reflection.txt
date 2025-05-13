@@ -1,0 +1,33 @@
+Task 1:
+1. Input validation, like checking if the ID was not a number, were moved to their own functions in a separate file specifically 
+for input validation code.
+app.js was cleaned up to only contain the routes, with the original function code being moved to their own files to make the 
+file easier to read and understand at a glance.
+Accessing the database and handling the request & response were moved to their own individual files as well.
+
+2. I had trouble understanding what to put in models and what to put in controllers, particularly for when the database 
+failed to link the inputted ID to an entry. Also, while testing the API, I accidentally left an extra comma in at the end of a 
+json object in the request body, which crashed the server the instant I tried sending any request.  
+I didn't even know a GET request still sent a body if present. 
+
+3. I have been enlightened and am now more motivated to work in the codebase now that it's more organized. 
+Before, when everything was in app.js, it was a pain navigating the file since the code blocks were massive and 
+was quite disorientating to constantly collapse and expand.
+
+4. Every different step of the process is compartmentalized into their own folders/files. 
+The files are also easier to navigate since they're focused on 1 singular purpose.
+Easier to understand what's wrong when an error prints in the console, since you have the file name to work off as well instead of just the line number.
+It also makes creating code snippets easier now that the code is broken up instead of just a massive block with responses, requests, input validation, etc.
+
+5.It will be easier for people to collaborate on platforms like Github. 
+If you're working with input validation, there won't be any conflicting commits with someone working on another part of the project.
+
+Task 2:
+1. It is a lot easier to account for many different input validation errors. 
+Instead of a million if else statements checking the input, it's become more like a switch statement where "if this error happens, show this error message."
+Now, it checks for whether a string is too short or too long.
+
+2. Parameterized queries ensure that whatever is input is strictly treated as data. This is more secure as it prevents foreign SQL code from being read as code.
+
+3. Detailed error messages may clue attackers into the structure of the API and any unused endpoints that might be a weakness.
+It also prevents sensitive information such as usernames & emails from getting leaked via error messages.
